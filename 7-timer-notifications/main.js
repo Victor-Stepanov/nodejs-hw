@@ -1,3 +1,5 @@
+const notifier = require("node-notifier");
+
 const EventEmitter = require("node:events");
 
 const timerEmitter = new EventEmitter();
@@ -29,7 +31,12 @@ timerEmitter.on(EVENT_ERROR, (msg) => {
 });
 
 timerEmitter.on(EVENT_END, (msg) => {
-  console.log(msg);
+  notifier.notify({
+    title: "Timer",
+    message: msg,
+    sound: true,
+  });
+
   clearTimeout(timerId);
 });
 
